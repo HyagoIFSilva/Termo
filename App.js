@@ -1,13 +1,36 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Pressable, } from 'react-native';
 import { useState } from 'react';
+import { TextInput } from 'react-native-web';
 
 
 export default function App() {
+
+  
+function addLista() {
+  setLista ([...lista, {key: Math.random().toString(), value: numero}]
+);
+
+setNumero ('');
+}
+const GerarSenha = () => {
+  setSenha (NewSenha);
+  console.log(NewSenha); 
+
+
+};
   return (
+    
     <View style={styles.geral}>
-
-
+      <Text style={{fontSize: 20, fontWeight: 'bold', color: 'blue'}}>Escolha Um numero De 0 a 9</Text>
+    
+       <TextInput
+        style={styles.textoInput}
+        placeholder="Digite um número"
+        value={numero}
+        onChangeText={setNumero}
+        />
+       
     <View style={styles.elementos}>
       <View style={styles.box}>
       <Text style={styles.texto}>Texto</Text>
@@ -26,6 +49,7 @@ export default function App() {
       <StatusBar style="auto" />
 
     </View>
+
 
 
 
@@ -70,5 +94,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
-  }
+  },
+  textoInput:{
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    width: '80%',
+  },
 });
