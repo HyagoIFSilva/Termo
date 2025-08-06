@@ -38,6 +38,11 @@ const GerarSenha = () => {
   return (
     
     <View style={styles.geral}>
+      <Text style={styles.texto}>Escolha um numero de 0 a 9</Text>
+      <TextInput
+        style={styles.textoInput}
+        placeholder="Digite um número"
+        keyboardType="numeric" />
     <View style={styles.sombra}>
 <Pressable
           style={[styles.card, {top: sombraTop}]}
@@ -125,20 +130,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
     width: '80%',
+
   },
 
-  botao : {
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginTop: 10,
-  },
    sombra:{
     width:200,
     height:100,
     borderRadius:5,
-    backgroundColor:"#00000080"
+    backgroundColor:"#00000080",
+
   },
 
   card: {
