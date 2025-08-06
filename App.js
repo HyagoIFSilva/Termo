@@ -10,16 +10,16 @@ export default function App() {
 
     <View style={styles.elementos}>
       <View style={styles.box}>
-
+      <Text style={styles.texto}>Texto</Text>
       </View>
       <View style={styles.box}>
-
+      <Text style={styles.texto}>Texto</Text>
       </View>
       <View style={styles.box}>
-
+      <Text style={styles.texto}>Texto</Text>
       </View>
       <View style={styles.box}>
-
+<Text style={styles.texto}>Texto</Text>
       </View>
 
               </View>
@@ -65,4 +65,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 5,
   },
+  texto:{
+    color: 'red',
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  }
 });
