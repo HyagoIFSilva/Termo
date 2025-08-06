@@ -22,15 +22,8 @@ const GerarSenha = () => {
   return (
     
     <View style={styles.geral}>
-      <Text style={{fontSize: 20, fontWeight: 'bold', color: 'blue'}}>Escolha Um numero De 0 a 9</Text>
-    
-       <TextInput
-        style={styles.textoInput}
-        placeholder="Digite um número"
-        value={numero}
-        onChangeText={setNumero}
-        />
-       
+
+
     <View style={styles.elementos}>
       <View style={styles.box}>
       <Text style={styles.texto}>Texto</Text>
