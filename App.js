@@ -24,7 +24,7 @@ export default function App() {
   function addLista() {
     setLista([...lista, { key: Math.random().toString(), value: numero }]);
     setNumero("");
-    
+
   }
 
   const GerarSenha = () => {
@@ -37,7 +37,7 @@ export default function App() {
   
 
       <View style={styles.elementos}>
-        <Text style={styles.texto}>Escolha um numero de 0 a 9</Text>
+        <Text style={styles.texto}>Escolha um numero aae 0 a 9</Text>
 
         <View style={styles.box}>
           <TextInput style={styles.texto}/>
