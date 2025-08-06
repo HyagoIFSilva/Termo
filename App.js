@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
     width: '80%',
+    padding: 10,
 
   },
 
