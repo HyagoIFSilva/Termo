@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
+    padding: 20,
   },
   textoInput:{
     height: 40,
