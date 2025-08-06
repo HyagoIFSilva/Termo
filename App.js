@@ -6,7 +6,11 @@ import { useState } from 'react';
 export default function App() {
   return (
     <View style={styles.geral}>
+teste
+<p>
 
+  teste
+</p>
 
     <View style={styles.elementos}>
       <View style={styles.box}>
