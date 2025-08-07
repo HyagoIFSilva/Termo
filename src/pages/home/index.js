@@ -1,77 +1,130 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native';
-import { useState } from 'react';
+import { Text, View, Pressable, TextInput } from 'react-native';
+import { useState, useEffect } from 'react';
 
-import styles from './style';
+import estilos from './style';
 
-export default function App() {
-  const [corSombraCard, setCorSombraCard] = useState("#fff");
-  const [sombraTop, setSombraTop] = useState(-10);
-  const [numero, setNumero] = useState('');
-  const [lista, setLista] = useState([]);
-  const [senha, setSenha] = useState('');
+export default function Home() {
+  const [palpite, setPalpite] = useState('');
+  const [palpitesAnteriores, setPalpitesAnteriores] = useState([]);
+  const [numeroSecreto, setNumeroSecreto] = useState('');
+  const [fimDeJogo, setFimDeJogo] = useState(false);
+  const maxTentativas = 6;
+  const numDigitos = 4;
 
-  const Pressionado = () => {
-    setCorSombraCard("red");
-    setSombraTop(0);
+  const gerarNumeroSecreto = () => {
+    let numero = '';
+    while (numero.length < numDigitos) {
+      const digito = Math.floor(Math.random() * 10);
+      numero += digito;
+    }
+    setNumeroSecreto(numero);
   };
 
-  const solto = () => {
-    setCorSombraCard("blue");
-    setSombraTop(-10);
+  useEffect(() => {
+    gerarNumeroSecreto();
+  }, []);
+
+  const lidarComPalpite = () => {
+    if (palpite.length !== numDigitos || fimDeJogo) return;
+
+    const digitosSecretos = numeroSecreto.split('');
+    const digitosPalpite = palpite.split('');
+
+    const indicesPosicaoCerta = new Set();
+    const indicesPosicaoErrada = new Set();
+
+    for (let i = 0; i < numDigitos; i++) {
+      if (digitosPalpite[i] === digitosSecretos[i]) {
+        indicesPosicaoCerta.add(i);
+      }
+    }
+
+    for (let i = 0; i < numDigitos; i++) {
+      if (!indicesPosicaoCerta.has(i)) {
+        for (let j = 0; j < numDigitos; j++) {
+          if (!indicesPosicaoCerta.has(j) && digitosPalpite[i] === digitosSecretos[j] && !indicesPosicaoErrada.has(j)) {
+            indicesPosicaoErrada.add(j);
+            break;
+          }
+        }
+      }
+    }
+
+    const feedback = digitosPalpite.map((digito, index) => {
+      let estiloCaixa = estilos.caixaIncorreta;
+      if (indicesPosicaoCerta.has(index)) {
+        estiloCaixa = estilos.caixaCerta;
+      } else if (indicesPosicaoErrada.has(index)) {
+        estiloCaixa = estilos.caixaPosicaoErrada;
+      }
+      return { digito, estilo: estiloCaixa };
+    });
+
+    setPalpitesAnteriores([...palpitesAnteriores, feedback]);
+
+    if (palpite === numeroSecreto) {
+      setFimDeJogo(true);
+      return;
+    }
+
+    if (palpitesAnteriores.length + 1 >= maxTentativas) {
+      setFimDeJogo(true);
+    }
+
+    setPalpite('');
   };
 
-  const funcao = () => {
-    console.log("Card clicado!");
-  };
-
-  const addLista = () => {
-    setLista([...lista, { key: Math.random().toString(), value: numero }]);
-    setNumero('');
-  };
-
-  const GerarSenha = () => {
-    const NewSenha = Math.random().toString(36).slice(-8); 
-    setSenha(NewSenha);
-    console.log(NewSenha);
+  const lidarComReiniciar = () => {
+    setPalpitesAnteriores([]);
+    setPalpite('');
+    setFimDeJogo(false);
+    gerarNumeroSecreto();
   };
 
   return (
-    <View style={styles.geral}>
-      <View style={styles.elementos}>
-        <Text style={styles.texto}>Escolha um numero de 0 a 9</Text>
+    <View style={estilos.telaPrincipal}>
+      <Text style={estilos.textoMensagem}>Adivinhe o Número!</Text>
 
-        <View style={styles.box}>
+      <View style={estilos.tabuleiro}>
+        {palpitesAnteriores.map((linhaPalpite, indiceLinha) => (
+          <View key={indiceLinha} style={estilos.linha}>
+            {linhaPalpite.map((caixa, indiceCaixa) => (
+              <View key={indiceCaixa} style={[estilos.caixa, caixa.estilo]}>
+                <Text style={estilos.textoCaixa}>{caixa.digito}</Text>
+              </View>
+            ))}
+          </View>
+        ))}
+      </View>
+
+      {!fimDeJogo && (
+        <View style={estilos.linhaInput}>
           <TextInput
-            style={styles.texto}
-            value={numero}
-            onChangeText={setNumero}
+            style={estilos.entrada}
+            onChangeText={texto => setPalpite(texto.replace(/[^0-9]/g, ''))}
+            value={palpite}
             keyboardType="numeric"
-            maxLength={1}
+            maxLength={numDigitos}
+            autoFocus
           />
         </View>
+      )}
 
-        <View style={styles.sombra}>
-          <Pressable
-            style={[styles.card, { top: sombraTop, backgroundColor: corSombraCard }]}
-            onPressIn={Pressionado}
-            onPressOut={solto}
-            onPress={funcao}
-          >
-            <Text style={styles.texto}>Clique Aqui</Text>
+      {fimDeJogo ? (
+        <>
+          <Text style={estilos.textoMensagem}>
+            {palpitesAnteriores[palpitesAnteriores.length - 1].every(t => t.estilo === estilos.caixaCerta) ? 'Você Venceu!' : `Game Over! A senha era: ${numeroSecreto}`}
+          </Text>
+          <Pressable style={estilos.botao} onPress={lidarComReiniciar}>
+            <Text style={estilos.textoBotao}>Reiniciar</Text>
           </Pressable>
-        </View>
-
-        <Pressable style={styles.card} onPress={addLista}>
-          <Text style={styles.texto}>Adicionar</Text>
+        </>
+      ) : (
+        <Pressable style={estilos.botao} onPress={lidarComPalpite}>
+          <Text style={estilos.textoBotao}>Enviar</Text>
         </Pressable>
-
-        <Pressable style={styles.card} onPress={GerarSenha}>
-          <Text style={styles.texto}>Gerar Senha</Text>
-        </Pressable>
-
-        <Text style={styles.texto}>Senha: {senha}</Text>
-      </View>
+      )}
 
       <StatusBar style="auto" />
     </View>

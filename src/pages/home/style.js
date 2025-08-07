@@ -1,71 +1,84 @@
-const styles = StyleSheet.create({
-  geral: {
-    display: 'flex',
+import { StyleSheet } from "react-native";
+
+export default StyleSheet.create({
+  telaPrincipal: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 10,
-    borderColor: 'black', 
-    borderRadius: 10,
-    width: '90%',
-    height: '100%',  
+    backgroundColor: "#121213",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
   },
-  elementos: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    flex: 1,
-    backgroundColor: '#f0f0f0',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
-    padding: 30,
+  tabuleiro: {
+    width: "100%",
+    alignItems: "center",
   },
-  box: {
-    width: 70,
-    height: 70,
-    backgroundColor: 'blue',
-    borderWidth: 2,
-    borderColor: 'black',
-    borderRadius: 10,
-    padding: 2,
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  texto:{
-    color: 'red',
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  textoInput:{
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
+  linha: {
+    flexDirection: "row",
+    justifyContent: "center",
     marginBottom: 10,
-    paddingHorizontal: 10,
-    width: '80%',
-
   },
-
-   sombra:{
-    width:200,
-    height:100,
-    borderRadius:5,
-    backgroundColor:"#00000080",
-
-  },
-
-  card: {
-    width:200,
-    height:100,
+  caixa: {
+    width: 60,
+    height: 60,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:"#ccc",
-    borderRadius:5
+    marginHorizontal: 5,
+    borderWidth: 2,
+    borderColor: "#3a3a3c",
+  },
+  textoCaixa: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "#fff",
+  },
+  linhaInput: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  entrada: {
+    width: 250,
+    height: 60,
+    backgroundColor: "#3a3a3c",
+    color: "#fff",
+    fontSize: 32,
+    fontWeight: "bold",
+    textAlign: "center",
+    borderWidth: 2,
+    borderColor: "#565758",
+    marginHorizontal: 5,
+    paddingHorizontal: 10,
+  },
+  botao: {
+    backgroundColor: "#565758",
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 5,
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  textoBotao: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  textoMensagem: {
+    color: "#fff",
+    fontSize: 24,
+    fontWeight: "bold",
+    marginTop: 20,
+  },
+  caixaCerta: {
+    backgroundColor: "#6aaa64",
+    borderColor: "#6aaa64",
+  },
+  caixaPosicaoErrada: {
+    backgroundColor: "#c9b458",
+    borderColor: "#c9b458",
+  },
+  caixaIncorreta: {
+    backgroundColor: "#787c7e",
+    borderColor: "#787c7e",
   },
 });
