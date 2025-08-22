@@ -89,7 +89,6 @@ export default function GameScreen() {
   const handleShare = async () => { const isWinner = palpitesAnteriores[palpitesAnteriores.length - 1]?.guess === numeroSecreto; const title = `Termo Digital - ${isWinner ? palpitesAnteriores.length : 'X'}/${MAX_TENTATIVAS}`; const resultGrid = palpitesAnteriores.map(({ feedback }) => { return feedback.map(tile => { if (tile.estilo === estilos.caixaCerta) return '🟩'; if (tile.estilo === estilos.caixaPosicaoErrada) return '🟨'; return '⬛'; }).join(''); }).join('\n'); const message = `${title}\n\n${resultGrid}`; await Sharing.shareAsync(message); };
 
   const handleKeyPress = async (key) => {
-    // 5. Tocar som de clique
     await sounds.current.click.replayAsync();
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
 
